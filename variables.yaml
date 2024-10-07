@@ -21,7 +21,9 @@ project_id: CH-822922
 keypair: consumer
 network: CH-822922-net
 security_group: ENABLE_SSH
-instance_name: VM_TEST
+instance_name: team-22-vm-
+auth_url: https://kvm.tacc.chameleoncloud.org:5000/v3
+project_domain_name: chameleon
 # @@ You have to add additional variables here that you need
 #    in the different children playbooks. This could be things
 #    like VM properties such as VM name prefix, the flavor like

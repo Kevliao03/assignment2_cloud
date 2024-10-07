@@ -1,7 +1,12 @@
 ---
-- name: Provision a Chameleon Cloud VM
-  hosts: localhost
-  connection: local
+- name: "Play 2: Create VMs on Chameleon"
+  hosts: LocalMC # this alias is specified in the Inventory file
+  remote_user: "{{ local_user }}"
+  gather_facts: no
+  become: false # No need for sudo as we are not installing anything
+  collections:
+    - ansible-base
+    - openstack.cloud.collection
   vars_files:
     - variables.yaml
   tasks:
@@ -9,15 +14,20 @@
       os_server:
         state: present
         auth:
-          project_name: "CH-822922"
-          auth_url: https://kvm.tacc.chameleoncloud.org:5000/v3
-          project_domain_name: chameleon
-        name: "{{ instance_name }}"
+          project_name: "{{ project_id }}"
+          auth_url: "{{ auth_url }}"
+          project_domain_name: "{{ project_domain_name }}"
+        name: "{{ item }}"
         flavor: "{{ flavor }}"
         image: "{{ image }}"
         key_name: "{{ keypair }}"
         network: "{{ network }}"
         auto_ip: yes
+      loop:
+        - "{{ instance_name }}-1"
+        - "{{ instance_name }}-2"
+        - "{{ instance_name }}-3"
+        - "{{ instance_name }}-4"
       register: vm
 
     - name: Display VM info
