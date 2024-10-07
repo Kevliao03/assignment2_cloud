@@ -4,7 +4,7 @@
 # CS4287/5287 Principles of Cloud Computing
 # Created: Fall 2024
 #
-# Purpose: 
+# Purpose:
 #    This yaml file declares the different variables. It uses
 #    a Python dictionary syntax
 #
@@ -14,7 +14,7 @@
 # @@ make sure to add the local user's username @@
 local_user: <add the user name of the user from where this master is invoked>
 
-cloud_user: cc  # user on chameleon VMs is cc
+cloud_user: cc # user on chameleon VMs is cc
 
 # @@ You have to add additional variables here that you need
 #    in the different children playbooks. This could be things
@@ -23,5 +23,10 @@ cloud_user: cc  # user on chameleon VMs is cc
 #    create the VM.
 # @@
 
-
-...
+flavor: m1.medium
+image: CC-Ubuntu22.04
+project_id: CH-822922
+keypair: mykey
+network: CH-822922-net
+security_group: ENABLE_SSH
+instance_name: VM_TEST
