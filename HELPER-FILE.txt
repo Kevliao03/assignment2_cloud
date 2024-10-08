@@ -17,3 +17,6 @@ ansible-playbook -i Inventory -e "@variables.yaml" playbook_create_vms.yaml \
 
 ansible-playbook -i Inventory -e "@variables.yaml" playbook_retrieve_facts_vms.yaml \
 -e "ansible_python_interpreter=$(which python)"
+
+ansible-playbook -i Inventory -e "@variables.yaml" playbook_step_by_step.yaml \
+-e "ansible_python_interpreter=$(which python)"

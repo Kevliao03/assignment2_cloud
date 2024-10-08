@@ -1,0 +1,15 @@
+---
+- name: Install required APT packages
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop:
+    - python3-pip
+    - python3-dev
+    - build-essential
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
+  become: true
