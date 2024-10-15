@@ -22,10 +22,6 @@
 #####################################################
 - name: "Play 4 - Install various packages on Cloud VMs"
   hosts: CloudVMs # specified in the Inventory file
-  remote_user:
-    "{{ cloud_user }}" # since this play operates on the cloud
-    # VMs, the user on those VMs is the
-    # cloud_user variable
   become: true # by setting this, we perform operations with sudo privilege
   gather_facts: no
   collections:

@@ -1,3 +1,14 @@
 ---
-- name: Install required PIP packages
-  raw: sudo pip3 install ansible docker docker-compose paramiko pyyaml boto3 botocore
+- name: Install Python packages using pip
+  ansible.builtin.pip:
+    name:
+      - ansible
+      - docker
+      - docker-compose
+      - paramiko
+      - pyyaml
+      - boto3
+      - botocore
+      - pickle
+      - kafka-python
+    state: present
