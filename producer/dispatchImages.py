@@ -8,9 +8,9 @@ import os
 from kafka import KafkaProducer  
 from kafka import KafkaConsumer
 
-BOOTSTRAPIP = "0.0.0.0:9092"
-PRODUCERTOPIC = "IOT"
-CONSUMERTOPIC = "MLINFERENCE"
+BOOTSTRAPIP = "192.168.5.115:9092"
+PRODUCERTOPIC = "images"
+CONSUMERTOPIC = "results"
 
 #reads a "pickled" file and returns a dictionary with its data
 def unpickle(file):
@@ -102,7 +102,7 @@ def sender(frequency=1, numImages = 0):
         sentIDs[ID] = int(time.perf_counter_ns() / 1000000)
         sentIDsLock.release()
                 
-        producer.send (PRODUCERTOPIC, value=bytes (img, 'ascii'))
+        producer.send (PRODUCERTOPIC, value=bytes (outText, 'ascii'))
         producer.flush ()
         time.sleep(waitTime)
         
@@ -114,7 +114,7 @@ def sender(frequency=1, numImages = 0):
             doSend()
 
 def e2eTimer():
-    consumer = KafkaConsumer (bootstrap_servers="localhost:9092")
+    consumer = KafkaConsumer (bootstrap_servers=BOOTSTRAPIP)
     consumer.subscribe (topics=[CONSUMERTOPIC])
     
     file = open("e2elatency.csv", "a+") #opens file in append mode. creates it if DNE
