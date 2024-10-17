@@ -8,8 +8,8 @@ import time
 
 # Kafka configuration
 BROKER_IP = '192.168.5.115:9092'
-TOPIC_INPUT = 'iot'
-TOPIC_OUTPUT = 'inference-result'
+TOPIC_INPUT = 'images'
+TOPIC_OUTPUT = 'results'
 
 # CouchDB configuration
 COUCHDB_URL = "http://admin:password@192.168.5.115:5984/images"
