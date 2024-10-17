@@ -1,0 +1,4 @@
+1. ssh into VM4
+2. docker build -t ml-inference-container .
+3. docker run -p 5000:5000 ml-inference-container 
+(docker run --network=host ml-inference-container)
