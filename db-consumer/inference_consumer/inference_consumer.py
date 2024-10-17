@@ -8,8 +8,8 @@ import time
 
 # Kafka configuration
 BROKER_IP = '192.168.5.115:9092'
-TOPIC_INPUT = 'iot'
-TOPIC_OUTPUT = 'inference-result'
+TOPIC_INPUT = 'images'
+TOPIC_OUTPUT = 'results'
 
 # CouchDB configuration
 COUCHDB_URL = "http://admin:password@192.168.5.115:5984/images"
@@ -63,7 +63,8 @@ def send_for_inference(image_id, image_data):
     if response.status_code == 200:
         predicted_class = response.json()['predicted_class']
         print(f"Inference result: {image_id} => {predicted_class}")
-        producer.send(TOPIC_OUTPUT, {'ID': image_id, 'predicted_class': predicted_class})
+        obj = {'ID': image_id, 'predicted_class': predicted_class}
+        producer.send(TOPIC_OUTPUT, value=bytes (json.dumps(obj), 'ascii'))
         update_couchdb(image_id, predicted_class)
     else:
         print(f"Failed inference for {image_id}. Error: {response.text}")

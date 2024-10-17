@@ -1,5 +1,0 @@
-1. ssh into VM4
-2. cd into ml_server
-3. docker build -t ml-inference-container .
-4. docker run -p 5000:5000 ml-inference-container 
-(docker run --network=host ml-inference-container)
