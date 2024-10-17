@@ -99,7 +99,7 @@ def sender(frequency=1, numImages = 0):
         outText = json.dumps(obj)
                 
         sentIDsLock.acquire()
-        sentIDs[ID] = int(time.perf_counter_ns() / 1000000)
+        sentIDs[str(ID)] = int(time.perf_counter_ns() / 1000000)
         sentIDsLock.release()
                 
         producer.send (PRODUCERTOPIC, value=bytes (outText, 'ascii'))
@@ -120,13 +120,15 @@ def e2eTimer():
     file = open("e2elatency.csv", "a+") #opens file in append mode. creates it if DNE
     
     for msg in consumer:
-        
+        print("received message: " + msg.value.decode("utf-8"))
         receivedTimeMS = int(time.perf_counter_ns() / 1000000)
-        msgDict = json.loads(msg)
+        msgDict = json.loads(msg.value.decode("utf-8"))
         receivedID = msgDict["ID"]
+        print("Received message with ID: " + receivedID)
         
         sentIDsLock.acquire()
-        if receivedID in sentIDs:            
+        if receivedID in sentIDs:
+            print("WE HAVE A MATCH")            
             sentTimeMS = sentIDs[receivedID]
             del sentIDs[receivedID]
             #release the lock here so the sender thread doesn't have to wait for a 
