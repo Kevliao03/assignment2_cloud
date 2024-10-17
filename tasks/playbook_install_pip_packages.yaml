@@ -9,6 +9,5 @@
       - pyyaml
       - boto3
       - botocore
-      - pickle
       - kafka-python
     state: present

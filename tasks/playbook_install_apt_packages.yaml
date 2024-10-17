@@ -9,4 +9,5 @@
       - gnupg
       - lsb-release
       - default-jdk
+      - default-jre
     state: present
